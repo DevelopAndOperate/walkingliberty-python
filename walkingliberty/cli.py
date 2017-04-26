@@ -17,7 +17,7 @@ def balance(args):
 def send(args):
     print(walkingliberty.send(args.phrase,
                               args.address,
-                              args.amount))
+                              args.satoshis))
 
 def main():
     parser = argparse.ArgumentParser(description='WalkingLiberty CLI.')
@@ -38,7 +38,7 @@ def main():
     send_subparser.set_defaults(func=send)
     send_subparser.add_argument('phrase', help='Deterministic phrase.')
     send_subparser.add_argument('address', help='Address to send to.')
-    send_subparser.add_argument('amount', help='Amount.')
+    send_subparser.add_argument('satoshis', help='Satoshis.', type=int)
 
     args = parser.parse_args()
     # This calls the function or wrapper function, depending on what we set
