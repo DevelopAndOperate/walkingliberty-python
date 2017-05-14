@@ -11,4 +11,4 @@ def test_address_balance():
     This probably won't last for long...
     Can easily be "stolen".
     """
-    assert walkingliberty.balance('PotatoCancer541AlphaFartz') == 36969
+    assert walkingliberty.balance('ShouldTotallyBeZeroBalance') == 0

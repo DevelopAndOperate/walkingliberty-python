@@ -9,6 +9,9 @@ from urllib2 import urlopen
 import pybitcoin
 import yaml
 
+# 3,000 Satoshis.
+FEE = 3000
+
 WALLETAPI = 'https://bitaps.com/api/address/{}'
 
 
@@ -42,4 +45,8 @@ def send(phrase, address, satoshis):
     """
     client = pybitcoin.BlockchainInfoClient()
     priv_key = _phrase_to_key(phrase)
-    return pybitcoin.send_to_address(address, satoshis, priv_key, client)
+    return pybitcoin.send_to_address(address,
+                                     satoshis,
+                                     priv_key,
+                                     client,
+                                     fee=FEE)
