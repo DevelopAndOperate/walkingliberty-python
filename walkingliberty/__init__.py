@@ -9,8 +9,8 @@ from urllib2 import urlopen
 import pybitcoin
 import yaml
 
-# 3,000 Satoshis.
-FEE = 3000
+# 10,000 Satoshis.
+FEE = 10000
 
 WALLETAPI = 'https://bitaps.com/api/address/{}'
 
@@ -43,7 +43,7 @@ def send(phrase, address, satoshis):
     """
     Sends amount to address from the phrase wallet.
     """
-    client = pybitcoin.BlockchainInfoClient()
+    client = pybitcoin.BlockcypherClient()
     priv_key = _phrase_to_key(phrase)
     return pybitcoin.send_to_address(address,
                                      satoshis,
