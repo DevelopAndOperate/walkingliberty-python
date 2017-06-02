@@ -9,8 +9,11 @@ from urllib2 import urlopen
 import pybitcoin
 import yaml
 
-# 10,000 Satoshis.
-FEE = 10000
+# This should be dynamic eventually.
+# As of 2017-06-02, to confirm in 1 day you need about 43k Satoshis.
+# 30k should put us notably under a week.
+# 10k Satoshis is two weeks and counting, so not sustainable.
+FEE = 30000
 
 WALLETAPI = 'https://bitaps.com/api/address/{}'
 
