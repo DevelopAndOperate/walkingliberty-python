@@ -42,7 +42,7 @@ def balance(phrase):
     return dictionary['balance']
 
 
-def send(phrase, address, satoshis):
+def send(phrase, address, satoshis, fee=FEE):
     """
     Sends amount to address from the phrase wallet.
     """
@@ -52,4 +52,4 @@ def send(phrase, address, satoshis):
                                      satoshis,
                                      priv_key,
                                      client,
-                                     fee=FEE)
+                                     fee=fee)
