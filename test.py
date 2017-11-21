@@ -2,13 +2,15 @@ import walkingliberty
 
 
 def test_address_determinism():
-    assert walkingliberty.address('PotatoCancer541AlphaFartz') == '171JAQEE1uEUji5ex9hx1K9mpwcEcj86yd'
-    assert walkingliberty.address('satoshi') == '1ADJqstUMBB5zFquWg19UqZ7Zc6ePCpzLE'
+    WalkingLiberty = walkingliberty.WalkingLiberty()
+    assert WalkingLiberty.address('PotatoCancer541AlphaFartz') == '171JAQEE1uEUji5ex9hx1K9mpwcEcj86yd'
+    assert WalkingLiberty.address('satoshi') == '1ADJqstUMBB5zFquWg19UqZ7Zc6ePCpzLE'
 
 
 def test_address_balance():
     """
-    This probably won't last for long...
-    Can easily be "stolen".
+    Should be zero unless someone sends to it.
     """
-    assert walkingliberty.balance('ShouldTotallyBeZeroBalance') == 0
+    WalkingLiberty = walkingliberty.WalkingLiberty()
+    assert WalkingLiberty.balance('ShouldTotallyBeZeroBalance') == 0
+    assert WalkingLiberty.balance('PotatoCancer541AlphaFartz') == 2000

@@ -1,2 +1,3 @@
 pybitcoin
 pyyaml
+jsonrpclib-pelix
