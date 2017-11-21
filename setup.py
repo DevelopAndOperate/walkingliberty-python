@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 DOWNLOAD_URL = 'https://github.com/teran-mckinney/walkingliberty-python/tarball/{}'
 
@@ -21,7 +21,8 @@ setup(
     packages=['walkingliberty'],
     install_requires=[
         'pyyaml',
-        'pybitcoin'
+        'pybitcoin>=0.9.10',
+        'jsonrpclib-pelix'
     ],
     entry_points={
         'console_scripts': [

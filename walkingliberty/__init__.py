@@ -10,8 +10,6 @@ import pybitcoin
 import yaml
 import jsonrpclib
 
-from electrum_blockchain_client import Electrum_Blockchain_Client
-
 VALID_APIS = ('external', 'electrum')
 VALID_CURRENCIES = ('BTC',)
 # BCH in progress, needs work on pybitcoin
@@ -109,7 +107,7 @@ class WalkingLiberty():
         if self.api == 'external':
             client = pybitcoin.BlockcypherClient()
         elif self.api == 'electrum':
-            client = Electrum_Blockchain_Client(api_endpoint=self.api_endpoint)
+            client = pybitcoin.ElectrumClient(api_endpoint=self.api_endpoint)
         priv_key = _phrase_to_key(phrase)
         # FIXME: Add fee estimation. Will require some support on
         # pybitcoin's end.
