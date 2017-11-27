@@ -4,6 +4,8 @@ WalkingLiberty CLI
 
 import argparse
 
+import pyqrcode
+
 import walkingliberty
 
 
@@ -12,7 +14,13 @@ def address(args):
                                                    args.api_endpoint,
                                                    args.currency,
                                                    args.wallet_mode)
-    print(WalkingLiberty.address(args.phrase))
+    address = WalkingLiberty.address(args.phrase)
+    if args.qr is True:
+        qr = pyqrcode.create(address)
+        print(qr.terminal(module_color='black',
+                          background='white',
+                          quiet_zone=1))
+    print(address)
 
 
 def balance(args):
@@ -46,6 +54,10 @@ def main():
                                              help="Returns phrase's address.")
     address_subparser.set_defaults(func=address)
     address_subparser.add_argument('phrase', help='Deterministic phrase.')
+    address_subparser.add_argument('--qr',
+                                   help='QR code',
+                                   action='store_true',
+                                   default=False)
 
     balance_subparser = subparser.add_parser('balance',
                                              help="Returns phrase's balance.")
