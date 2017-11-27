@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 
 DOWNLOAD_URL = 'https://github.com/teran-mckinney/walkingliberty-python/tarball/{}'
 

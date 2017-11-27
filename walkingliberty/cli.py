@@ -10,21 +10,24 @@ import walkingliberty
 def address(args):
     WalkingLiberty = walkingliberty.WalkingLiberty(args.api,
                                                    args.api_endpoint,
-                                                   args.currency)
+                                                   args.currency,
+                                                   args.wallet_mode)
     print(WalkingLiberty.address(args.phrase))
 
 
 def balance(args):
     WalkingLiberty = walkingliberty.WalkingLiberty(args.api,
                                                    args.api_endpoint,
-                                                   args.currency)
+                                                   args.currency,
+                                                   args.wallet_mode)
     print(WalkingLiberty.balance(args.phrase))
 
 
 def send(args):
     WalkingLiberty = walkingliberty.WalkingLiberty(args.api,
                                                    args.api_endpoint,
-                                                   args.currency)
+                                                   args.currency,
+                                                   args.wallet_mode)
     print(WalkingLiberty.send(args.phrase,
                               args.address,
                               args.satoshis,
@@ -36,6 +39,7 @@ def main():
     parser.add_argument('--api', help='API', default=None)
     parser.add_argument('--api_endpoint', help='API endpoint', default=None)
     parser.add_argument('--currency', help='Currency', default=None)
+    parser.add_argument('--wallet_mode', help='Wallet mode', default=None)
 
     subparser = parser.add_subparsers()
     address_subparser = subparser.add_parser('address',

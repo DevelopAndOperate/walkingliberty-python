@@ -14,22 +14,17 @@ VALID_APIS = ('external', 'electrum')
 VALID_CURRENCIES = ('BTC',)
 # BCH in progress, needs work on pybitcoin
 # VALID_CURRENCIES = ('BTC', 'BCH')
+VALID_WALLET_MODES = ('deterministic-type1', 'wif')
 
 DEFAULT_API = VALID_APIS[0]
 DEFAULT_CURRENCY = VALID_CURRENCIES[0]
+DEFAULT_WALLET_MODE = VALID_WALLET_MODES[0]
 
 # This should be dynamic eventually.
 # As of 2017-06-02, to confirm in 1 day you need about 43k Satoshis.
 # 30k should put us notably under a week.
 # 10k Satoshis is two weeks and counting, so not sustainable.
 EXTERNAL_DEFAULT_FEE = 30000
-
-
-def _phrase_to_key(phrase):
-    """
-    Returns a private key from a phrase.
-    """
-    return pybitcoin.BitcoinPrivateKey.from_passphrase(passphrase=phrase)
 
 
 class WalkingLiberty():
@@ -39,7 +34,8 @@ class WalkingLiberty():
     def __init__(self,
                  api=None,
                  api_endpoint=None,
-                 currency=None):
+                 currency=None,
+                 wallet_mode=None):
         # # We do this strange thing because if a caller sets None, we won't
         #  override it otherwise which will cause a needless failure.
         if api is None:
@@ -47,6 +43,9 @@ class WalkingLiberty():
 
         if currency is None:
             currency = DEFAULT_CURRENCY
+
+        if wallet_mode is None:
+            wallet_mode = DEFAULT_WALLET_MODE
         # #
 
         if api not in VALID_APIS:
@@ -56,6 +55,10 @@ class WalkingLiberty():
         if currency not in VALID_CURRENCIES:
             message = 'currency must be one of: {}'.format(VALID_CURRENCIES)
             raise ValueError(message)
+
+        if wallet_mode not in VALID_WALLET_MODES:
+            message = 'wallet_mode must be one of: {}' \
+                      ''.format(VALID_WALLET_MODES)
 
         if api == 'external' and currency != 'BTC':
             message = 'Cannot use external API and non-BTC currency.'
@@ -72,18 +75,29 @@ class WalkingLiberty():
         self.api = api
         self.api_endpoint = api_endpoint
         self.currency = currency
+        self.wallet_mode = wallet_mode
 
-    def address(self, phrase):
+    def _private_key(self, private_key):
+        """
+        Returns a private key object
+        """
+        if self.wallet_mode == 'deterministic-type1':
+            BPK = pybitcoin.BitcoinPrivateKey
+            return BPK.from_passphrase(passphrase=private_key)
+        elif self.wallet_mode == 'wif':
+            return pybitcoin.BitcoinPrivateKey(private_key)
+
+    def address(self, private_key):
         """
         Returns address for key
         """
-        return _phrase_to_key(phrase).public_key().address()
+        return self._private_key(private_key).public_key().address()
 
-    def balance(self, phrase):
+    def balance(self, private_key):
         """
-        Returns balance for a phrase's address.
+        Returns balance for a private key's address.
         """
-        pub_address = self.address(phrase)
+        pub_address = self.address(private_key)
 
         if self.api == 'external':
             ADDRESS_API = 'https://bitaps.com/api/address/{}'
@@ -100,15 +114,15 @@ class WalkingLiberty():
             satoshi_balance = int(total_balance * 100000000)
             return satoshi_balance
 
-    def send(self, phrase, address, satoshis, fee=None):
+    def send(self, private_key, address, satoshis, fee=None):
         """
-        Sends amount to address from the phrase wallet.
+        Sends amount to address from the private_key's wallet.
         """
         if self.api == 'external':
             client = pybitcoin.BlockcypherClient()
         elif self.api == 'electrum':
             client = pybitcoin.ElectrumClient(api_endpoint=self.api_endpoint)
-        priv_key = _phrase_to_key(phrase)
+        priv_key = self._private_key(private_key)
         # FIXME: Add fee estimation. Will require some support on
         # pybitcoin's end.
         if fee is None:
