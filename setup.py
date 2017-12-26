@@ -2,7 +2,14 @@
 
 from setuptools import setup
 
-VERSION = '0.2.0'
+f=open('walkingliberty/__init__.py','r')
+for line in f:
+    if line.startswith('__version__'):
+        v = line.replace("'", '').split('=')
+        break
+f.close()
+
+VERSION=v[1].replace('\n','')
 
 DOWNLOAD_URL = 'https://github.com/teran-mckinney/walkingliberty-python/tarball/{}'
 

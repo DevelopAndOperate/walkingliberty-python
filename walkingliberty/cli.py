@@ -46,6 +46,8 @@ def main():
     parser = argparse.ArgumentParser(description='WalkingLiberty CLI.')
     parser.add_argument('--currency', help='Currency', default=None)
     parser.add_argument('--wallet_mode', help='Wallet mode', default=None)
+    parser.add_argument('--version', action='version', version='%(prog)s {version}'.format(version=walkingliberty.__version__))
+
 
     subparser = parser.add_subparsers()
     address_subparser = subparser.add_parser('address',
