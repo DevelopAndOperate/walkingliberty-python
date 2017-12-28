@@ -9,7 +9,7 @@ from hashlib import sha256
 import bit
 import bitcash
 
-__version__='0.2.0'
+__version__ = '0.2.0'
 
 VALID_CURRENCIES = ('BTC', 'BCH')
 VALID_WALLET_MODES = ('deterministic-type1', 'wif')
