@@ -44,7 +44,7 @@ def sweep(args):
 
 def main():
     parser = argparse.ArgumentParser(description='WalkingLiberty CLI.')
-    parser.add_argument('--currency', help='Currency', default=None)
+    parser.add_argument('--currency', help='Currency', type=str.lower, default='bch')
     parser.add_argument('--wallet_mode', help='Wallet mode', default=None)
     parser.add_argument('--version', action='version',
                         version='WalkingLiberty {version}'.

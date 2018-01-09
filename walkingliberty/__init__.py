@@ -11,7 +11,7 @@ import bitcash
 
 __version__ = '0.2.0'
 
-VALID_CURRENCIES = ('BTC', 'BCH')
+VALID_CURRENCIES = ('btc', 'bch')
 VALID_WALLET_MODES = ('deterministic-type1', 'wif')
 
 DEFAULT_CURRENCY = VALID_CURRENCIES[0]
@@ -42,9 +42,9 @@ class WalkingLiberty():
             message = 'wallet_mode must be one of: {}' \
                       ''.format(VALID_WALLET_MODES)
 
-        if currency == 'BTC':
+        if currency == 'btc':
             self.bit = bit
-        elif currency == 'BCH':
+        elif currency == 'bch':
             self.bit = bitcash
 
         self.currency = currency

@@ -1,4 +1,10 @@
 import walkingliberty
+import re
+
+
+def test_version():
+    version = walkingliberty.__version__
+    assert bool(re.match(r'^(\d+)\.(\d+)\.(\d+)$', version))
 
 
 def test_address_determinism():
