@@ -12,7 +12,7 @@ def test_address_determinism():
     assert WalkingLiberty.address('PotatoCancer541AlphaFartz') == '1MiD4qj3T668cPonjNYcYDzZSYTgHJvdiy'
     assert WalkingLiberty.address('satoshi') == '1xm4vFerV3pSgvBFkyzLgT1Ew3HQYrS1V'
 
-    WalkingLibertyBCH = walkingliberty.WalkingLiberty(currency='BCH')
+    WalkingLibertyBCH = walkingliberty.WalkingLiberty(currency='bch')
     assert WalkingLibertyBCH.address('PotatoCancer541AlphaFartz') == '1MiD4qj3T668cPonjNYcYDzZSYTgHJvdiy'
     assert WalkingLibertyBCH.address('satoshi') == '1xm4vFerV3pSgvBFkyzLgT1Ew3HQYrS1V'
 
@@ -28,7 +28,7 @@ def test_address_balance():
     assert WalkingLiberty.balance('ShouldTotallyBeZeroBalance') == 0
     assert WalkingLiberty.balance('PotatoCancer541AlphaFartz') == 0
 
-    WalkingLibertyBCH = walkingliberty.WalkingLiberty(currency='BCH')
+    WalkingLibertyBCH = walkingliberty.WalkingLiberty(currency='bch')
     assert WalkingLiberty.balance('ShouldTotallyBeZeroBalance') == 0
 
     WalkingLibertyWIF = walkingliberty.WalkingLiberty(wallet_mode='wif')
